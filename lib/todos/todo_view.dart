@@ -13,7 +13,7 @@ class TodoView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Todos App"),
+        title: Text("Todos"),
       ),
       body: ListTodos(),
       floatingActionButton: FloatingActionButton(
@@ -136,7 +136,15 @@ Widget todoForm(BuildContext context, ScrollController controller) {
               size: 25,
               color: Colors.white,
             ),
-            onPressed: () {},
+            onPressed: () {
+              String title = textController1.value.text.trim();
+              String subtitle = textController2.value.text.trim();
+              context.read<TodoVM>().add(title, subtitle);
+
+              textController1.clear();
+              textController2.clear();
+              Navigator.pop(context);
+            },
           )
         ],
       ),

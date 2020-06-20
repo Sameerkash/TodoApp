@@ -12,7 +12,7 @@ void main() => runApp(
       MultiProvider(
         providers: [
           Provider<ILocalStorage>(
-            create: (_) => FakeLocalStorage(),
+            create: (_) => LocalStorage(),
           ),
           StateNotifierProvider<TodoVM, TodoState>(create: (_) => TodoVM())
         ],

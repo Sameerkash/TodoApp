@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:state_notifier/state_notifier.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
+import 'package:state_notifier_provider/services/ilocal_storage.dart';
 
 class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
   TodoVM() : super(const TodoState.loading());
@@ -37,8 +38,12 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
     if (currentState is TodoStateData) {
       final todos = currentState.todos.toList()
         ..add(
-          Todo(id: rand.nextInt(100).toString(), title: title),
+          Todo(
+              id: rand.nextInt(100).toString(),
+              title: title,
+              subtitle: subtitle),
         );
+
       state = currentState.copyWith(
         todos: todos,
       );
