@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
-import 'package:state_notifier_provider/models/counter.dart';
 
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/services/ilocal_storage.dart';
@@ -12,9 +11,7 @@ void main() => runApp(
           Provider<ILocalStorage>(
             create: (_) => FakeLocalStorage(),
           ),
-          StateNotifierProvider<Counter, int>(
-            create: (_) => Counter(),
-          ),
+         
         ],
         child: MyApp(),
       ),
@@ -23,7 +20,7 @@ void main() => runApp(
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    const fabPadding = EdgeInsets.all(5);
+    // const fabPadding = EdgeInsets.all(5);
 
     return MaterialApp(
       theme: ThemeData(

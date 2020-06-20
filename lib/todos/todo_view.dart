@@ -20,5 +20,7 @@ Widget todo() {
   return CheckboxListTile(
     onChanged: (value) {},
     value: false,
+    title: Text('Workout 💪'),
+    subtitle: Text("workout from 7-8"),
   );
 }
