@@ -36,40 +36,36 @@ class MyApp extends StatelessWidget {
         selectedRowColor: Colors.green,
       ),
       title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('State Notifier Demo'),
-        ),
+      home:
 
-        // floatingActionButton: Column(
-        //   crossAxisAlignment: CrossAxisAlignment.end,
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: <Widget>[
-        //     Padding(
-        //       padding: fabPadding,
-        //       child: FloatingActionButton(
-        //         child: Icon(Icons.add),
+          // floatingActionButton: Column(
+          //   crossAxisAlignment: CrossAxisAlignment.end,
+          //   mainAxisAlignment: MainAxisAlignment.end,
+          //   children: <Widget>[
+          //     Padding(
+          //       padding: fabPadding,
+          //       child: FloatingActionButton(
+          //         child: Icon(Icons.add),
 
-        //         ///Increment Counter
-        //         onPressed: () {
-        //           context.read<Counter>().increment();
-        //         },
-        //       ),
-        //     ),
-        //     Padding(
-        //       padding: fabPadding,
-        //       child: FloatingActionButton(
-        //           child: Icon(Icons.remove),
+          //         ///Increment Counter
+          //         onPressed: () {
+          //           context.read<Counter>().increment();
+          //         },
+          //       ),
+          //     ),
+          //     Padding(
+          //       padding: fabPadding,
+          //       child: FloatingActionButton(
+          //           child: Icon(Icons.remove),
 
-        //           ///Decrement Counter
-        //           onPressed: () {
-        //             context.read<Counter>().decrement();
-        //           }),
-        //     ),
-        //   ],
-        // ),
-        body: TodoView(),
-      ),
+          //           ///Decrement Counter
+          //           onPressed: () {
+          //             context.read<Counter>().decrement();
+          //           }),
+          //     ),
+          //   ],
+          // ),
+          TodoView(),
     );
   }
 }
