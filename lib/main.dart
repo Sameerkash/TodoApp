@@ -3,8 +3,8 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/services/local_storage.dart';
-import 'package:state_notifier_provider/todos/todo_view.dart';
-import 'package:state_notifier_provider/todos/todo_vm.dart';
+import 'package:state_notifier_provider/ui/todos/todo_view.dart';
+import 'package:state_notifier_provider/ui/todos/todo_vm.dart';
 
 import 'models/Todo.dart';
 

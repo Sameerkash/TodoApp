@@ -1,12 +1,6 @@
-
 import 'package:sembast/sembast.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
 import 'package:state_notifier_provider/services/app_database.dart';
-
-// abstract class ILocalStorage {
-//   Future<void> saveTodo(Todo todo);
-//   Future<List<Todo>> getTodos();
-// }
 
 class LocalStorage {
   static const DBNAME = "todos";
