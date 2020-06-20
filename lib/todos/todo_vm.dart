@@ -1,8 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
-import 'package:state_notifier_provider/services/ilocal_storage.dart';
+import 'package:state_notifier_provider/services/local_storage.dart';
 
 class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
   TodoVM() : super(const TodoState.loading());
@@ -11,39 +12,25 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
   @override
   void initState() async {
     super.initState();
-
     rand = new Random();
-    await Future<void>.delayed(const Duration(seconds: 3));
+    getTodosFromdb();
+  }
 
-    state = TodoState(
-      todos: [
-        Todo(
-            id: rand.nextInt(100).toString(),
-            title: 'hello',
-            subtitle: "3am in the moring"),
-        Todo(
-            id: rand.nextInt(100).toString(),
-            title: 'sup',
-            subtitle: "usually i dont do this"),
-        Todo(
-            id: rand.nextInt(100).toString(),
-            title: 'hi',
-            subtitle: "hello how are ypu"),
-      ],
-    );
+  void getTodosFromdb() async {
+    final todos = await read<LocalStorage>().getTodos();
+    state = TodoState(todos: todos);
   }
 
   void add(String title, String subtitle) {
     final currentState = state;
     if (currentState is TodoStateData) {
-      final todos = currentState.todos.toList()
-        ..add(
-          Todo(
-              id: rand.nextInt(100).toString(),
-              title: title,
-              subtitle: subtitle),
-        );
-
+      final todo = Todo(
+          id: rand.nextInt(100).toString(), title: title, subtitle: subtitle);
+      //update
+      final todos = currentState.todos.toList()..add(todo);
+      //localstorage
+      read<LocalStorage>().saveTodo(todo);
+      //update state
       state = currentState.copyWith(
         todos: todos,
       );
@@ -72,6 +59,7 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
     if (currentState is TodoStateData) {
       final todos = currentState.todos;
       todos.removeWhere((todoEle) => todoEle.id == todo.id);
+      read<LocalStorage>().deleteTodos(todo);
     }
   }
 }

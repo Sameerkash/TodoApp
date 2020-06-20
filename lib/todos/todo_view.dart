@@ -8,7 +8,17 @@ import 'package:state_notifier_provider/todos/todo_vm.dart';
 
 part 'todo_view.g.dart';
 
-class TodoView extends StatelessWidget {
+class TodoView extends StatefulWidget {
+  @override
+  _TodoViewState createState() => _TodoViewState();
+}
+
+class _TodoViewState extends State<TodoView> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +49,23 @@ class TodoView extends StatelessWidget {
 @widget
 Widget listTodos(BuildContext context) {
   return context.watch<TodoState>().when(
-      (todos) => ListView.builder(
-            itemBuilder: (context, index) {
-              return TodoTile(todos[index]);
-            },
-            itemCount: todos.length,
-          ),
-      loading: () => Center(child: CircularProgressIndicator()));
+    (todos) {
+      return todos.isEmpty
+          ? Center(
+              child: Text(
+                'Try Adding a Todo!',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
+            )
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return TodoTile(todos[index]);
+              },
+              itemCount: todos.length,
+            );
+    },
+    loading: () => Center(child: CircularProgressIndicator()),
+  );
 }
 
 @widget
