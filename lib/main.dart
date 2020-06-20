@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
@@ -13,15 +12,15 @@ import 'models/Todo.dart';
 void main() => runApp(
       // DevicePreview(
       //   builder: (context) =>
-         MultiProvider(
-          providers: [
-            Provider(
-              create: (_) => LocalStorage(),
-            ),
-            StateNotifierProvider<TodoVM, TodoState>(create: (_) => TodoVM())
-          ],
-          child: MyApp(),
-        ),
+      MultiProvider(
+        providers: [
+          Provider(
+            create: (_) => LocalStorage(),
+          ),
+          StateNotifierProvider<TodoVM, TodoState>(create: (_) => TodoVM())
+        ],
+        child: MyApp(),
+      ),
       // ),
     );
 
@@ -53,54 +52,7 @@ class MyApp extends StatelessWidget {
         selectedRowColor: Colors.green,
       ),
       title: 'Material App',
-      home:
-
-          // floatingActionButton: Column(
-          //   crossAxisAlignment: CrossAxisAlignment.end,
-          //   mainAxisAlignment: MainAxisAlignment.end,
-          //   children: <Widget>[
-          //     Padding(
-          //       padding: fabPadding,
-          //       child: FloatingActionButton(
-          //         child: Icon(Icons.add),
-
-          //         ///Increment Counter
-          //         onPressed: () {
-          //           context.read<Counter>().increment();
-          //         },
-          //       ),
-          //     ),
-          //     Padding(
-          //       padding: fabPadding,
-          //       child: FloatingActionButton(
-          //           child: Icon(Icons.remove),
-
-          //           ///Decrement Counter
-          //           onPressed: () {
-          //             context.read<Counter>().decrement();
-          //           }),
-          //     ),
-          //   ],
-          // ),
-          TodoView(),
+      home: TodoView(),
     );
   }
 }
-
-// class _Body extends StatelessWidget {
-//   const _Body({
-//     Key key,
-//   }) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Center(
-//       child: Container(
-//         child: Text(
-//           context.watch<int>().toString(),
-//           style: Theme.of(context).textTheme.headline4,
-//         ),
-//       ),
-//     );
-//   }
-// }
