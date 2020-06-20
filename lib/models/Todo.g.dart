@@ -11,7 +11,7 @@ _$_Todo _$_$_TodoFromJson(Map<String, dynamic> json) {
     id: json['id'] as String,
     title: json['title'] as String,
     subtitle: json['subtitle'] as String,
-    isDone: json['isDone'] as bool,
+    isDone: json['isDone'] as bool ?? false,
   );
 }
 

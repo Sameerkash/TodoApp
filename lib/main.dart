@@ -4,6 +4,9 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/services/ilocal_storage.dart';
 import 'package:state_notifier_provider/todos/todo_view.dart';
+import 'package:state_notifier_provider/todos/todo_vm.dart';
+
+import 'models/Todo.dart';
 
 void main() => runApp(
       MultiProvider(
@@ -11,7 +14,7 @@ void main() => runApp(
           Provider<ILocalStorage>(
             create: (_) => FakeLocalStorage(),
           ),
-         
+          StateNotifierProvider<TodoVM, TodoState>(create: (_) => TodoVM())
         ],
         child: MyApp(),
       ),
@@ -65,7 +68,7 @@ class MyApp extends StatelessWidget {
         //     ),
         //   ],
         // ),
-        body: Todo(),
+        body: TodoView(),
       ),
     );
   }

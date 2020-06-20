@@ -10,10 +10,17 @@ abstract class Todo with _$Todo {
       {@required String id,
       String title,
       String subtitle,
-      bool isDone}) = _Todo;
+      @Default(false) bool isDone}) = _Todo;
 
   factory Todo.fromJson(Map<String, dynamic> json) => _$TodoFromJson(json);
 
   Map<String, dynamic> toJson() => _$_$_TodoToJson(this);
 }
 
+@freezed
+abstract class TodoState with _$TodoState {
+  const factory TodoState({
+    @Default(<Todo>[]) List<Todo> todos,
+  }) = TodoStateData;
+  const factory TodoState.loading() = TodoStateLoading;
+}
