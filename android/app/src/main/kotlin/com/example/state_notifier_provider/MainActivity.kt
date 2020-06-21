@@ -1,4 +1,4 @@
-package com.example.state_notifier_provider
+package com.sam.todo
 
 import io.flutter.embedding.android.FlutterActivity
 
