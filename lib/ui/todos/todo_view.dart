@@ -8,17 +8,7 @@ import 'package:state_notifier_provider/ui/todos/todo_vm.dart';
 
 part 'todo_view.g.dart';
 
-class TodoView extends StatefulWidget {
-  @override
-  _TodoViewState createState() => _TodoViewState();
-}
-
-class _TodoViewState extends State<TodoView> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class TodoView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,11 +63,10 @@ Widget todoTile(BuildContext context, Todo todo) {
   return Dismissible(
     key: UniqueKey(),
     onDismissed: (DismissDirection direction) {
-      if (direction == DismissDirection.endToStart)
-        context.read<TodoVM>().delete(todo);
+      context.read<TodoVM>().delete(todo);
     },
     child: CheckboxListTile(
-      onChanged: (value) {
+      onChanged: (_) {
         context.read<TodoVM>().toggle(todo);
       },
       value: todo.isDone,

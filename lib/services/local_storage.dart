@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:sembast/sembast.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
 import 'package:state_notifier_provider/services/app_database.dart';
@@ -13,6 +14,16 @@ class LocalStorage {
   Future<void> saveTodo(Todo todo) async {
     try {
       await _todosStore.add(await _db, todo.toJson());
+    } catch (e) {
+      print("$e");
+    }
+  }
+
+  Future<void> updateTodo(Todo todo) async {
+    try {
+      final finder = Finder(filter: Filter.equals('id', todo.id));
+
+      await _todosStore.update(await _db, todo.toJson(), finder: finder);
     } catch (e) {
       print("$e");
     }

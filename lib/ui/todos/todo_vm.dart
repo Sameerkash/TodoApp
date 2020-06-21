@@ -18,12 +18,14 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
 
   void getTodosFromdb() async {
     final todos = await read<LocalStorage>().getTodos();
+    print(todos);
     state = TodoState(todos: todos);
   }
 
   void add(String title, String subtitle) {
     final currentState = state;
     if (currentState is TodoStateData) {
+      //object
       final todo = Todo(
           id: rand.nextInt(100).toString(), title: title, subtitle: subtitle);
       //update
@@ -42,12 +44,15 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
     if (currentState is TodoStateData) {
       final todos = currentState.todos.map((t) {
         if (t == todo) {
-          return t.copyWith(
+          var to = t.copyWith(
             isDone: !t.isDone,
           );
+          read<LocalStorage>().updateTodo(to);
+          return to;
         }
         return t;
       }).toList();
+
       state = TodoState(
         todos: todos,
       );
@@ -57,9 +62,14 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
   void delete(Todo todo) {
     final currentState = state;
     if (currentState is TodoStateData) {
-      final todos = currentState.todos;
-      todos.removeWhere((todoEle) => todoEle.id == todo.id);
-      read<LocalStorage>().deleteTodos(todo);
+      final todoS = currentState.todos.remove(todo);
+
+      if (todoS) {
+        read<LocalStorage>().deleteTodos(todo);
+        //remove from state
+        print(currentState.todos);
+        state = TodoState(todos: currentState.todos);
+      }
     }
   }
 }
