@@ -15,7 +15,20 @@ class TodoView extends StatelessWidget {
       appBar: AppBar(
         title: Text("Todos"),
       ),
-      body: ListTodos(),
+      body: context.watch<TodoState>().when(
+        (todos) {
+          print("todoslistview ${todos.length}");
+          return todos.isEmpty
+              ? Center(
+                  child: Text(
+                    'Try Adding a Todo!',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                )
+              : ListTodos(todos);
+        },
+        loading: () => Center(child: CircularProgressIndicator()),
+      ),
       floatingActionButton: FloatingActionButton(
         elevation: 2,
         heroTag: "fab1",
@@ -37,33 +50,31 @@ class TodoView extends StatelessWidget {
 }
 
 @widget
-Widget listTodos(BuildContext context) {
-  return context.watch<TodoState>().when(
-    (todos) {
-      return todos.isEmpty
-          ? Center(
-              child: Text(
-                'Try Adding a Todo!',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),
-            )
-          : ListView.builder(
-              itemBuilder: (context, index) {
-                return TodoTile(todos[index]);
-              },
-              itemCount: todos.length,
-            );
+Widget listTodos(BuildContext context, List<Todo> todos) {
+  return ListView.builder(
+    itemBuilder: (context, index) {
+      return TodoTile(todos[index]);
     },
-    loading: () => Center(child: CircularProgressIndicator()),
+    itemCount: todos.length,
   );
 }
 
 @widget
 Widget todoTile(BuildContext context, Todo todo) {
   return Dismissible(
+    background: Container(
+      child: Icon(Icons.delete),
+      alignment: AlignmentDirectional.centerStart,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      color: Colors.red,
+    ),
     key: UniqueKey(),
     onDismissed: (DismissDirection direction) {
-      context.read<TodoVM>().delete(todo);
+      if (direction == DismissDirection.startToEnd) {
+        context.read<TodoVM>().delete(todo);
+      } else {
+        return;
+      }
     },
     child: CheckboxListTile(
       onChanged: (_) {

@@ -63,12 +63,10 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
     final currentState = state;
     if (currentState is TodoStateData) {
       final todoS = currentState.todos.remove(todo);
-
+      print(todoS);
       if (todoS) {
-        read<LocalStorage>().deleteTodos(todo);
-        //remove from state
-        print(currentState.todos);
         state = TodoState(todos: currentState.todos);
+        read<LocalStorage>().deleteTodos(todo);
       }
     }
   }

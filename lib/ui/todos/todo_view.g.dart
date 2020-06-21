@@ -7,10 +7,12 @@ part of 'todo_view.dart';
 // **************************************************************************
 
 class ListTodos extends StatelessWidget {
-  const ListTodos({Key key}) : super(key: key);
+  const ListTodos(this.todos, {Key key}) : super(key: key);
+
+  final List<Todo> todos;
 
   @override
-  Widget build(BuildContext _context) => listTodos(_context);
+  Widget build(BuildContext _context) => listTodos(_context, todos);
 }
 
 class TodoTile extends StatelessWidget {
