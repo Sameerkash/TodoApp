@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
 import 'package:state_notifier_provider/services/local_storage.dart';
@@ -19,11 +18,17 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
   void getTodosFromdb() async {
     final todos = await read<LocalStorage>().getTodos();
     print(todos);
+    if (todos.isEmpty) {
+      state = TodoState.empty();
+    }
     state = TodoState(todos: todos);
   }
 
   void add(String title, String subtitle) {
-    final currentState = state;
+    var currentState = state;
+    if (currentState == TodoState.empty()) {
+      currentState = TodoState();
+    }
     if (currentState is TodoStateData) {
       //object
       final todo = Todo(
@@ -33,7 +38,7 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
       //localstorage
       read<LocalStorage>().saveTodo(todo);
       //update state
-      state = currentState.copyWith(
+      state = TodoState(
         todos: todos,
       );
     }
@@ -62,12 +67,14 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
   void delete(Todo todo) {
     final currentState = state;
     if (currentState is TodoStateData) {
-      final todoS = currentState.todos.remove(todo);
-      print(todoS);
-      if (todoS) {
-        state = TodoState(todos: currentState.todos);
+      var list = currentState.todos.where((t) => t != todo).toList();
+      if (list.isEmpty) {
+        state = TodoState.empty();
+      } else {
+        state = TodoState(todos: list);
         read<LocalStorage>().deleteTodos(todo);
       }
+      // }
     }
   }
 }

@@ -15,6 +15,15 @@ class ListTodos extends StatelessWidget {
   Widget build(BuildContext _context) => listTodos(_context, todos);
 }
 
+class Dialogs extends StatelessWidget {
+  const Dialogs(this.todo, {Key key}) : super(key: key);
+
+  final Todo todo;
+
+  @override
+  Widget build(BuildContext _context) => dialogs(_context, todo);
+}
+
 class TodoTile extends StatelessWidget {
   const TodoTile(this.todo, {Key key}) : super(key: key);
 

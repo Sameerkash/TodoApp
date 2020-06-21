@@ -204,6 +204,10 @@ class _$TodoStateTearOff {
   TodoStateLoading loading() {
     return const TodoStateLoading();
   }
+
+  TodoStateEmpty empty() {
+    return const TodoStateEmpty();
+  }
 }
 
 // ignore: unused_element
@@ -214,22 +218,26 @@ mixin _$TodoState {
   Result when<Result extends Object>(
     Result $default(List<Todo> todos), {
     @required Result loading(),
+    @required Result empty(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>(
     Result $default(List<Todo> todos), {
     Result loading(),
+    Result empty(),
     @required Result orElse(),
   });
   @optionalTypeArgs
   Result map<Result extends Object>(
     Result $default(TodoStateData value), {
     @required Result loading(TodoStateLoading value),
+    @required Result empty(TodoStateEmpty value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>(
     Result $default(TodoStateData value), {
     Result loading(TodoStateLoading value),
+    Result empty(TodoStateEmpty value),
     @required Result orElse(),
   });
 }
@@ -314,9 +322,11 @@ class _$TodoStateData with DiagnosticableTreeMixin implements TodoStateData {
   Result when<Result extends Object>(
     Result $default(List<Todo> todos), {
     @required Result loading(),
+    @required Result empty(),
   }) {
     assert($default != null);
     assert(loading != null);
+    assert(empty != null);
     return $default(todos);
   }
 
@@ -325,6 +335,7 @@ class _$TodoStateData with DiagnosticableTreeMixin implements TodoStateData {
   Result maybeWhen<Result extends Object>(
     Result $default(List<Todo> todos), {
     Result loading(),
+    Result empty(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -339,9 +350,11 @@ class _$TodoStateData with DiagnosticableTreeMixin implements TodoStateData {
   Result map<Result extends Object>(
     Result $default(TodoStateData value), {
     @required Result loading(TodoStateLoading value),
+    @required Result empty(TodoStateEmpty value),
   }) {
     assert($default != null);
     assert(loading != null);
+    assert(empty != null);
     return $default(this);
   }
 
@@ -350,6 +363,7 @@ class _$TodoStateData with DiagnosticableTreeMixin implements TodoStateData {
   Result maybeMap<Result extends Object>(
     Result $default(TodoStateData value), {
     Result loading(TodoStateLoading value),
+    Result empty(TodoStateEmpty value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -412,9 +426,11 @@ class _$TodoStateLoading
   Result when<Result extends Object>(
     Result $default(List<Todo> todos), {
     @required Result loading(),
+    @required Result empty(),
   }) {
     assert($default != null);
     assert(loading != null);
+    assert(empty != null);
     return loading();
   }
 
@@ -423,6 +439,7 @@ class _$TodoStateLoading
   Result maybeWhen<Result extends Object>(
     Result $default(List<Todo> todos), {
     Result loading(),
+    Result empty(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -437,9 +454,11 @@ class _$TodoStateLoading
   Result map<Result extends Object>(
     Result $default(TodoStateData value), {
     @required Result loading(TodoStateLoading value),
+    @required Result empty(TodoStateEmpty value),
   }) {
     assert($default != null);
     assert(loading != null);
+    assert(empty != null);
     return loading(this);
   }
 
@@ -448,6 +467,7 @@ class _$TodoStateLoading
   Result maybeMap<Result extends Object>(
     Result $default(TodoStateData value), {
     Result loading(TodoStateLoading value),
+    Result empty(TodoStateEmpty value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -460,4 +480,103 @@ class _$TodoStateLoading
 
 abstract class TodoStateLoading implements TodoState {
   const factory TodoStateLoading() = _$TodoStateLoading;
+}
+
+abstract class $TodoStateEmptyCopyWith<$Res> {
+  factory $TodoStateEmptyCopyWith(
+          TodoStateEmpty value, $Res Function(TodoStateEmpty) then) =
+      _$TodoStateEmptyCopyWithImpl<$Res>;
+}
+
+class _$TodoStateEmptyCopyWithImpl<$Res> extends _$TodoStateCopyWithImpl<$Res>
+    implements $TodoStateEmptyCopyWith<$Res> {
+  _$TodoStateEmptyCopyWithImpl(
+      TodoStateEmpty _value, $Res Function(TodoStateEmpty) _then)
+      : super(_value, (v) => _then(v as TodoStateEmpty));
+
+  @override
+  TodoStateEmpty get _value => super._value as TodoStateEmpty;
+}
+
+class _$TodoStateEmpty with DiagnosticableTreeMixin implements TodoStateEmpty {
+  const _$TodoStateEmpty();
+
+  @override
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'TodoState.empty()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'TodoState.empty'));
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is TodoStateEmpty);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  Result when<Result extends Object>(
+    Result $default(List<Todo> todos), {
+    @required Result loading(),
+    @required Result empty(),
+  }) {
+    assert($default != null);
+    assert(loading != null);
+    assert(empty != null);
+    return empty();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeWhen<Result extends Object>(
+    Result $default(List<Todo> todos), {
+    Result loading(),
+    Result empty(),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (empty != null) {
+      return empty();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  Result map<Result extends Object>(
+    Result $default(TodoStateData value), {
+    @required Result loading(TodoStateLoading value),
+    @required Result empty(TodoStateEmpty value),
+  }) {
+    assert($default != null);
+    assert(loading != null);
+    assert(empty != null);
+    return empty(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  Result maybeMap<Result extends Object>(
+    Result $default(TodoStateData value), {
+    Result loading(TodoStateLoading value),
+    Result empty(TodoStateEmpty value),
+    @required Result orElse(),
+  }) {
+    assert(orElse != null);
+    if (empty != null) {
+      return empty(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class TodoStateEmpty implements TodoState {
+  const factory TodoStateEmpty() = _$TodoStateEmpty;
 }

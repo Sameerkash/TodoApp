@@ -23,4 +23,5 @@ abstract class TodoState with _$TodoState {
     @Default(<Todo>[]) List<Todo> todos,
   }) = TodoStateData;
   const factory TodoState.loading() = TodoStateLoading;
+  const factory TodoState.empty() = TodoStateEmpty;
 }

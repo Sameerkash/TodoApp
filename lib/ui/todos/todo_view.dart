@@ -18,14 +18,15 @@ class TodoView extends StatelessWidget {
       body: context.watch<TodoState>().when(
         (todos) {
           print("todoslistview ${todos.length}");
-          return todos.isEmpty
-              ? Center(
-                  child: Text(
-                    'Try Adding a Todo!',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                  ),
-                )
-              : ListTodos(todos);
+          return ListTodos(todos);
+        },
+        empty: () {
+          return Center(
+            child: Text(
+              'Try Adding a Todo!',
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+            ),
+          );
         },
         loading: () => Center(child: CircularProgressIndicator()),
       ),
@@ -60,21 +61,51 @@ Widget listTodos(BuildContext context, List<Todo> todos) {
 }
 
 @widget
+Widget dialogs(BuildContext context, Todo todo) {
+  return AlertDialog(
+    title: Text("Get rid of this?"),
+    content: Text("Dialog Content"),
+    actions: [
+      FlatButton(
+          onPressed: () {
+            context.read<TodoVM>().delete(todo);
+            Navigator.pop(context);
+          },
+          child: Text("Yes, please!")),
+      FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text("No!"))
+    ],
+  );
+}
+
+@widget
 Widget todoTile(BuildContext context, Todo todo) {
-  return Dismissible(
-    background: Container(
-      child: Icon(Icons.delete),
-      alignment: AlignmentDirectional.centerStart,
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      color: Colors.red,
-    ),
-    key: UniqueKey(),
-    onDismissed: (DismissDirection direction) {
-      if (direction == DismissDirection.startToEnd) {
-        context.read<TodoVM>().delete(todo);
-      } else {
-        return;
-      }
+  // return Dismissible(
+  //   background: Container(
+  //     child: Icon(Icons.delete),
+  //     alignment: AlignmentDirectional.centerStart,
+  //     padding: EdgeInsets.symmetric(horizontal: 20),
+  //     color: Colors.red,
+  //   ),
+  //   key: UniqueKey(),
+  //   onDismissed: (DismissDirection direction) {
+  //     if (direction == DismissDirection.startToEnd) {
+  //       context.read<TodoVM>().delete(todo);
+  //     } else {
+  //       return;
+  //     }
+  //   },
+
+  return InkWell(
+    onLongPress: () {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return Dialogs(todo);
+          });
     },
     child: CheckboxListTile(
       onChanged: (_) {
@@ -93,6 +124,7 @@ Widget todoTile(BuildContext context, Todo todo) {
                 decoration: TextDecoration.lineThrough,
               ))
           : Text(todo.subtitle),
+      // ),
     ),
   );
 }
