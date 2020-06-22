@@ -4,6 +4,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:state_notifier_provider/hooks/scroll_controller_hook.dart';
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
+import 'package:state_notifier_provider/state/todo_state.dart';
 import 'package:state_notifier_provider/ui/todos/todo_vm.dart';
 
 part 'todo_view.g.dart';
