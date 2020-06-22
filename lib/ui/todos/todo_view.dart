@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
-import 'package:state_notifier_provider/hooks/scroll_controller_hook.dart';
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
 import 'package:state_notifier_provider/state/todo_state.dart';
+import 'package:state_notifier_provider/ui/signup/auth_vm.dart';
 import 'package:state_notifier_provider/ui/todos/todo_vm.dart';
 
 part 'todo_view.g.dart';
@@ -15,6 +15,14 @@ class TodoView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Todos"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              context.read<AuthVM>().logout();
+            },
+          )
+        ],
       ),
       body: context.watch<TodoState>().when(
         (todos) {

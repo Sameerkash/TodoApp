@@ -2,13 +2,25 @@ import 'package:division/division.dart';
 import 'package:flutter/material.dart';
 import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:provider/provider.dart';
+import 'package:state_notifier_provider/state/auth_state.dart';
+import 'package:state_notifier_provider/ui/signup/auth_vm.dart';
+import 'package:state_notifier_provider/ui/todos/todo_view.dart';
 
 part 'auth_view.g.dart';
 
 class AuthView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return LoginForm();
+    return Scaffold(
+      body: context.watch<AuthState>().when(
+            initial: () => Center(
+              child: CircularProgressIndicator(),
+            ),
+            authenticated: () => TodoView(),
+            unauthenticated: () => LoginForm(),
+          ),
+    );
   }
 }
 
@@ -115,7 +127,12 @@ Widget formFields(BuildContext context,
           height: 60,
         ),
         Parent(
-          gesture: Gestures()..onTap(() {}),
+          gesture: Gestures()
+            ..onTap(() {
+              final userName = textController1.value.text;
+              final password = textController2.value.text;
+              context.read<AuthVM>().login(userName, password);
+            }),
           style: cStyle.clone()
             ..elevation(1.5)
             ..ripple(true),

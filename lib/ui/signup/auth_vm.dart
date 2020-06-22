@@ -16,27 +16,35 @@ class AuthVM extends StateNotifier<AuthState> with LocatorMixin {
     final currentState = state;
     if (currentState == AuthState.initial()) {
       final exists = await read<LocalStorage>().getLoggedInUser();
-      if (exists) state = AuthState.authenticated();
-    } else {
-      state = AuthState.unauthenticated();
+      print(exists);
+      if (exists)
+        state = AuthState.authenticated();
+      else
+        state = AuthState.unauthenticated();
     }
   }
 
-  void login(String username, String password) {
+  void login(String username, String password) async {
     final currentState = state;
     if (currentState == AuthState.unauthenticated()) {
       final user =
           User(id: "hb5464asd5as5d", name: username, password: password);
-      read<LocalStorage>().loginUser(user);
-      state = AuthState.authenticated();
+      final login = await read<LocalStorage>().loginUser(user);
+      if (login)
+        state = AuthState.authenticated();
+      else
+        state = AuthState.unauthenticated();
     }
   }
 
-  void logout() {
+  void logout() async {
     final currentState = state;
     if (currentState == AuthState.authenticated()) {
-      read<LocalStorage>().logoutUser();
-      state = AuthState.unauthenticated();
+      final logout = await read<LocalStorage>().logoutUser();
+      if (logout)
+        state = AuthState.unauthenticated();
+      else
+        state = AuthState.authenticated();
     }
   }
 }

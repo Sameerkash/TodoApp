@@ -47,19 +47,28 @@ class LocalStorage {
     await _todosStore.delete(await _db, finder: finder);
   }
 
-  Future<void> loginUser(User user) async {
-    await _auth.record(loggedInUser).put(await _db, user.toJson());
+  Future<bool> loginUser(User user) async {
+    final login =
+        await _auth.record(loggedInUser).put(await _db, user.toJson());
+    if (login.isNotEmpty)
+      return true;
+    else
+      return false;
   }
 
   Future<bool> getLoggedInUser() async {
     final exists = await _auth.record(loggedInUser).get(await _db);
-    if (exists != null) {
+    if (exists != null)
       return true;
-    }
-    return false;
+    else
+      return false;
   }
 
-  Future<void> logoutUser() async {
-    await _auth.record(loggedInUser).delete(await _db);
+  Future<bool> logoutUser() async {
+    final logout = await _auth.record(loggedInUser).delete(await _db);
+    if (logout != null)
+      return true;
+    else
+      return false;
   }
 }
