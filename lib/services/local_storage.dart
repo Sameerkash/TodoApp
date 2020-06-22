@@ -1,11 +1,14 @@
 import 'package:sembast/sembast.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
+import 'package:state_notifier_provider/models/user.dart';
 import 'package:state_notifier_provider/services/app_database.dart';
 
 class LocalStorage {
   static const DBNAME = "todos";
+  final String loggedInUser = "loggedInUser";
 
   final _todosStore = intMapStoreFactory.store();
+  final _auth = stringMapStoreFactory.store('authStore');
 
   Future<Database> get _db async => await AppDatabase.instance.database;
 
@@ -44,9 +47,19 @@ class LocalStorage {
     await _todosStore.delete(await _db, finder: finder);
   }
 
+  Future<void> loginUser(User user) async {
+    await _auth.record(loggedInUser).put(await _db, user.toJson());
+  }
 
-  Future<void> loginUser() async {
+  Future<bool> getLoggedInUser() async {
+    final exists = await _auth.record(loggedInUser).get(await _db);
+    if (exists != null) {
+      return true;
+    }
+    return false;
+  }
 
-
+  Future<void> logoutUser() async {
+    await _auth.record(loggedInUser).delete(await _db);
   }
 }
