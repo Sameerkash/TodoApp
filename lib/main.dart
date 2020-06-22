@@ -3,11 +3,12 @@ import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/services/local_storage.dart';
-import 'package:state_notifier_provider/ui/todos/todo_view.dart';
+import 'package:state_notifier_provider/state/auth_state.dart';
+import 'package:state_notifier_provider/state/todo_state.dart';
+import 'package:state_notifier_provider/ui/signup/auth_view.dart';
+import 'package:state_notifier_provider/ui/signup/auth_vm.dart';
 import 'package:state_notifier_provider/ui/todos/todo_vm.dart';
 import 'package:responsive_framework/responsive_framework.dart';
-
-import 'models/Todo.dart';
 
 void main() => runApp(
       // DevicePreview(
@@ -17,7 +18,12 @@ void main() => runApp(
           Provider(
             create: (_) => LocalStorage(),
           ),
-          StateNotifierProvider<TodoVM, TodoState>(create: (_) => TodoVM())
+          StateNotifierProvider<AuthVM, AuthState>(
+            create: (_) => AuthVM(),
+          ),
+          StateNotifierProvider<TodoVM, TodoState>(
+            create: (_) => TodoVM(),
+          ),
         ],
         child: MyApp(),
       ),
@@ -52,7 +58,7 @@ class MyApp extends StatelessWidget {
         selectedRowColor: Colors.green,
       ),
       title: 'Material App',
-      home: TodoView(),
+      home: AuthView(),
     );
   }
 }

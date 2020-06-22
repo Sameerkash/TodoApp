@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:state_notifier/state_notifier.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
 import 'package:state_notifier_provider/services/local_storage.dart';
+import 'package:state_notifier_provider/state/todo_state.dart';
 
 class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
   TodoVM() : super(const TodoState.loading());
@@ -17,11 +18,11 @@ class TodoVM extends StateNotifier<TodoState> with LocatorMixin {
 
   void getTodosFromdb() async {
     final todos = await read<LocalStorage>().getTodos();
-    print(todos);
     if (todos.isEmpty) {
       state = TodoState.empty();
+    } else {
+      state = TodoState(todos: todos);
     }
-    state = TodoState(todos: todos);
   }
 
   void add(String title, String subtitle) {

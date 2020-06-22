@@ -33,7 +33,7 @@ class TodoTile extends StatelessWidget {
   Widget build(BuildContext _context) => todoTile(_context, todo);
 }
 
-class Scrollsheet extends HookWidget {
+class Scrollsheet extends StatelessWidget {
   const Scrollsheet({Key key}) : super(key: key);
 
   @override

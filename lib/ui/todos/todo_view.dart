@@ -4,6 +4,7 @@ import 'package:functional_widget_annotation/functional_widget_annotation.dart';
 import 'package:state_notifier_provider/hooks/scroll_controller_hook.dart';
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
+import 'package:state_notifier_provider/state/todo_state.dart';
 import 'package:state_notifier_provider/ui/todos/todo_vm.dart';
 
 part 'todo_view.g.dart';
@@ -17,7 +18,6 @@ class TodoView extends StatelessWidget {
       ),
       body: context.watch<TodoState>().when(
         (todos) {
-          print("todoslistview ${todos.length}");
           return ListTodos(todos);
         },
         empty: () {
@@ -129,10 +129,8 @@ Widget todoTile(BuildContext context, Todo todo) {
   );
 }
 
-@hwidget
+@widget
 Widget scrollsheet(BuildContext context) {
-  final scroll = useScrollController();
-
   return Material(
     child: DraggableScrollableSheet(
       minChildSize: 0.7,
