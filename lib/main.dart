@@ -1,10 +1,14 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
 
 import 'package:provider/provider.dart';
 import 'package:state_notifier_provider/services/local_storage.dart';
 import 'package:state_notifier_provider/state/auth_state.dart';
+import 'package:state_notifier_provider/state/connectivity_state.dart';
 import 'package:state_notifier_provider/state/todo_state.dart';
+import 'package:state_notifier_provider/ui/connectivity/connectivity_view.dart';
+import 'package:state_notifier_provider/ui/connectivity/connectivity_vm.dart';
 import 'package:state_notifier_provider/ui/signup/auth_view.dart';
 import 'package:state_notifier_provider/ui/signup/auth_vm.dart';
 import 'package:state_notifier_provider/ui/todos/todo_vm.dart';
@@ -17,6 +21,9 @@ void main() => runApp(
         providers: [
           Provider(
             create: (_) => LocalStorage(),
+          ),
+          StateNotifierProvider<ConnectivityVM, ConnectivityState>(
+            create: (_) => ConnectivityVM(),
           ),
           StateNotifierProvider<AuthVM, AuthState>(
             create: (_) => AuthVM(),
@@ -58,7 +65,7 @@ class MyApp extends StatelessWidget {
         selectedRowColor: Colors.green,
       ),
       title: 'Material App',
-      home: AuthView(),
+      home: ConnectivityView(),
     );
   }
 }
