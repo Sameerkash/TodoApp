@@ -18,7 +18,6 @@ class TodoView extends StatelessWidget {
       ),
       body: context.watch<TodoState>().when(
         (todos) {
-          print("todoslistview ${todos.length}");
           return ListTodos(todos);
         },
         empty: () {
@@ -130,10 +129,8 @@ Widget todoTile(BuildContext context, Todo todo) {
   );
 }
 
-@hwidget
+@widget
 Widget scrollsheet(BuildContext context) {
-  final scroll = useScrollController();
-
   return Material(
     child: DraggableScrollableSheet(
       minChildSize: 0.7,

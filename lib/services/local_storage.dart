@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:sembast/sembast.dart';
 import 'package:state_notifier_provider/models/Todo.dart';
 import 'package:state_notifier_provider/services/app_database.dart';
@@ -43,5 +42,11 @@ class LocalStorage {
   Future<void> deleteTodos(Todo todo) async {
     final finder = Finder(filter: Filter.equals('id', todo.id));
     await _todosStore.delete(await _db, finder: finder);
+  }
+
+
+  Future<void> loginUser() async {
+
+
   }
 }
