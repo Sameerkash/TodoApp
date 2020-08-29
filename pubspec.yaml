@@ -51,6 +51,7 @@ dev_dependencies:
   freezed: ^0.11.2
   json_serializable: ^3.2.5
   build_runner: ^1.10.0
+  mockito: ^4.1.0
 
 scripts:
   build: flutter pub run build_runner build --delete-conflicting-outputs

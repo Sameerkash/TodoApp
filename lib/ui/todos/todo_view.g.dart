@@ -6,7 +6,7 @@ part of 'todo_view.dart';
 // FunctionalWidgetGenerator
 // **************************************************************************
 
-class ListTodos extends StatelessWidget {
+class ListTodos extends HookWidget {
   const ListTodos(this.todos, {Key key}) : super(key: key);
 
   final List<Todo> todos;

@@ -12,12 +12,16 @@ class LocalStorage {
 
   Future<Database> get _db async => await AppDatabase.instance.database;
 
-  // @override
-  Future<void> saveTodo(Todo todo) async {
+  Future<bool> saveTodo(Todo todo) async {
     try {
-      await _todosStore.add(await _db, todo.toJson());
+      final record = await _todosStore.add(await _db, todo.toJson());
+      if (record != null) {
+        return true;
+      }
+      return false;
     } catch (e) {
       print("$e");
+      return false;
     }
   }
 

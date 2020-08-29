@@ -58,13 +58,35 @@ class TodoView extends StatelessWidget {
   }
 }
 
-@widget
+@hwidget
 Widget listTodos(BuildContext context, List<Todo> todos) {
-  return ListView.builder(
-    itemBuilder: (context, index) {
-      return TodoTile(todos[index]);
-    },
-    itemCount: todos.length,
+  final search = useTextEditingController();
+
+  return Column(
+    children: [
+      Container(
+        padding: EdgeInsets.all(12),
+        child: TextField(
+          controller: search,
+          decoration: InputDecoration(
+            labelText: "Search Todo",
+            border: InputBorder.none,
+          ),
+          onChanged: (val) {
+            context.read<TodoVM>().search(searchText: val);
+          },
+        ),
+      ),
+      Expanded(
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return TodoTile(todos[index]);
+          },
+          itemCount: todos.length,
+        ),
+      ),
+    ],
   );
 }
 
